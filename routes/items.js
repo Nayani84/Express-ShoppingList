@@ -11,27 +11,19 @@ router.get("/", function (req, res) {
 
 // GET Route - Single item
 router.get("/:name", function (req, res) {
-    const foundItem = items.find(item => item.name === req.params.name)
-    if (foundItem === undefined) {
-      throw new ExpressError("Item not found", 404)
-    }
-    res.json({ item: foundItem })
-  });
+  const foundItem = items.find(item => item.name === req.params.name)
+  if (foundItem === undefined) {
+    throw new ExpressError("Item not found", 404)
+  }
+  res.json({ item: foundItem })
+});
 
-  // router.get('/:name', (req, res, next) => {
-  //   try {
-  //     let foundItem = Item.find(req.params.name);
-  //     return res.json({item:foundItem});
-  //   } catch(err){
-  //     return next(err)
-  //   }
-  // });
 
 // POST Route
 router.post("/", function (req, res, next) {
   try {
     if (!req.body.name) throw new ExpressError("Item name & price required", 400);
-    let newItem = { name: req.body.name , price: req.body.price}
+    let newItem = { name: req.body.name, price: req.body.price }
     items.push(newItem)
     return res.status(201).json({ item: newItem })
   } catch (err) {
